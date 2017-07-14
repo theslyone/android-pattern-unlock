@@ -10,7 +10,6 @@ import { getPosition } from '../../../lib/DOMManager'
 export default class Keypad extends Component {
   constructor (props) {
     super(props)
-    this.selectKey = this.selectKey.bind(this)
     this.onCursorMoved = this.onCursorMoved.bind(this)
   }
 
@@ -39,10 +38,6 @@ export default class Keypad extends Component {
     if (isPositionOutside) {
       this.props.onCursorMoved(position)
     }
-  }
-
-  selectKey (value) {
-    this.props.onSelect(value)
   }
 
   render () {

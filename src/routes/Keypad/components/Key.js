@@ -50,19 +50,24 @@ export default class Key extends Component {
         console.log('onTap 2')
       }} onTouchStart={() => {
         this.start()
+      }} onTouchEnter={(e) => {
+        this.select()
+      }} onTouchLeave={(e) => {
+        //console.log(`onTouchLeave ${value}`)
       }} onTouchEnd={() => {
         this.end()
+      }} onMouseDown={() => {
+        this.start()
       }} onMouseEnter={(e) => {
         this.select()
       }} onMouseLeave={(e) => {
         //console.log(`onMouseLeave ${value}`)
-      }} onMouseDown={() => {
-        this.start()
       }} onMouseUp={() => {
         this.end()
       }}>
         <li className={keyClassName}>
-          <div className={`${value}`} />
+          <div ref={(node) => { this.key = node }}
+            className={`${value}`} />
         </li>
       </ReactGesture>
     )

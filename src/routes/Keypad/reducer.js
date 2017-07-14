@@ -110,8 +110,6 @@ const ACTION_HANDLERS = {
   [CURSOR_POSITION]: (state, action) => state.set('cursor', action.payload),
 
   [START]: (state, action) => state.set('active', true).setIn(['keys', action.payload.value], action.payload),
-  //[START]: (state, action) => state.set('active', true).setIn(['keys'], state.keys.set(action.payload.value, action.payload)),
-
   [SELECT]: (state, action) => state.setIn(['keys', action.payload.value], action.payload),
   [FINISH]: (state, action) => state.set('active', false),
 
