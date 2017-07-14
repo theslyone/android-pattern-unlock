@@ -48,13 +48,18 @@ export default class Key extends Component {
     return (
       <ReactGesture onTap={() => {
         console.log('onTap 2')
-      }} onTouchStart={() => {
+      }} onTouchStart={(e) => {
+        e.preventDefault()
         this.start()
       }} onTouchEnter={(e) => {
+        e.preventDefault()
+        e.preventDefault()
         this.select()
       }} onTouchLeave={(e) => {
+        e.preventDefault()
         //console.log(`onTouchLeave ${value}`)
-      }} onTouchEnd={() => {
+      }} onTouchEnd={(e) => {
+        e.preventDefault()
         this.end()
       }} onMouseDown={() => {
         this.start()
