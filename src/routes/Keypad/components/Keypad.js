@@ -59,7 +59,6 @@ export default class Keypad extends Component {
                 onEnd={onEnd}
                 isSelected={keys.get(i) != null} />
             })}
-
             {/*Draw lines between selected nodes*/}
             {keys.keySeq().toArray().map((node, idx) => {
               let selectedKeys = keys.keySeq().toArray()
