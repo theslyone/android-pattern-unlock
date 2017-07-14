@@ -48,7 +48,7 @@ export default class Keypad extends Component {
   }
 
   render () {
-    let { keys, cursor, isActive, setActive, onStart, onSelect, onEnd } = this.props
+    let { keys, cursor, isActive, onStart, onSelect, onEnd } = this.props
     return (
       <ul className='keypad'>
         <ReactCursorPosition onPositionChanged={this.onCursorMoved}>
@@ -56,7 +56,6 @@ export default class Keypad extends Component {
             {this.state.rows.map((i) => {
               return <Key key={i} value={i}
                 isActive={isActive}
-                setActive={setActive}
                 onStart={onStart}
                 onSelect={onSelect}
                 onEnd={onEnd}
@@ -94,7 +93,6 @@ Keypad.propTypes = {
   isActive: PropTypes.bool.isRequired,
   keys: PropTypes.object.isRequired,
   cursor: PropTypes.object,
-  setActive: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   onStart: PropTypes.func.isRequired,
   onEnd: PropTypes.func.isRequired,

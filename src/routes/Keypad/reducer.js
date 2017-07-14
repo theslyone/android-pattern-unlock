@@ -3,6 +3,8 @@ import { push } from 'react-router-redux'
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const SET_MODE = 'SET_MODE'
+export const SET_SECRET = 'SET_SECRET'
 export const CURSOR_POSITION = 'CURSOR_POSITION'
 export const SELECT = 'SELECT'
 export const CLEAR = 'CLEAR'
@@ -20,9 +22,16 @@ export function onCursorMoved (position) {
   }
 }
 
-export function setActive (value) {
+export function setMode (value) {
   return {
-    type: SET_ACTIVE,
+    type: SET_MODE,
+    payload: value
+  }
+}
+
+export function setSecret (value) {
+  return {
+    type: SET_SECRET,
     payload: value
   }
 }
@@ -63,38 +72,55 @@ export function grantAccess (value) {
 export function end (value) {
   return (dispatch, getState) => {
     dispatch(finish())
+    let mode = getState().keypad.mode
     let keys = getState().keypad.keys
-    let secret = getState().keypad.secret
-    let secretKey = keys.keySeq().toArray().join('')
-    let accessGranted = secretKey === secret
-    if (accessGranted) {
-      dispatch(grantAccess(true))
-    } else {
-      dispatch(grantAccess(false))
-    }
-    setTimeout(() => {
-      dispatch(clear())
-      if (accessGranted) {
-        dispatch(push('/home'))
-      }
-    }, 1000)
-  }
-}
 
-export const actions = {
-  onCursorMoved, start, select, end, clear
+    let secretKey = keys.keySeq().toArray().join('')
+
+    if (mode === 'changePassword') {
+      dispatch(setSecret(secretKey))
+      setTimeout(() => {
+        dispatch(setMode())
+        dispatch(push('/'))
+      }, 2000)
+    } else {
+      let secret = getState().keypad.secret
+      let accessGranted = secretKey === secret
+      if (accessGranted) {
+        dispatch(grantAccess(true))
+      } else {
+        dispatch(grantAccess(false))
+      }
+
+      setTimeout(() => {
+        dispatch(setMode())
+        if (accessGranted) {
+          dispatch(push('/home'))
+        }
+      }, 1000)
+    }
+  }
 }
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [SET_ACTIVE]: (state, action) => state.set('active', action.payload),
+  [SET_MODE]: (state, action) => initialState.set('secret', state.secret).set('mode', action.payload || 'default'),
   [CURSOR_POSITION]: (state, action) => state.set('cursor', action.payload),
-  [SELECT]    : (state, action) => state.setIn(['keys', action.payload.value], action.payload),
+  [SELECT]: (state, action) => state.setIn(['keys', action.payload.value], action.payload),
   [START]: (state, action) => state.set('active', true).setIn(['keys', action.payload.value], action.payload),
   [FINISH]: (state, action) => state.set('active', false),
-  [GRANT_ACCESS]: (state, action) => state.set('isCorrect', action.payload),
+
+  [SET_SECRET]: (state, action) => state.set('secret', action.payload)
+    .setIn(['status', 'className'], 'info')
+    .setIn(['status', 'text'], 'Password changed successful'),
+
+  [GRANT_ACCESS]: (state, action) => {
+    return state.set('isCorrect', action.payload)
+      .setIn(['status', 'className'], action.payload ? 'success' : 'error')
+      .setIn(['status', 'text'], action.payload ? 'Success' : 'Opps! pattern is not correct')
+  },
   [CLEAR]  : (state, action) => initialState
 }
 
@@ -102,12 +128,22 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = Record({
+  mode: 'default',
   active: false,
   cursor: {},
   keys: Map(),
   secret: '123',
+  status: (Record({
+    className: 'default',
+    text: 'Draw a pattern to unlock'
+  }))(),
+  statusText: 'Draw a pattern to unlock',
   isCorrect: null
 })()
+
+export const actions = {
+  onCursorMoved, start, select, end, clear
+}
 
 export default function keypadReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

@@ -69,6 +69,10 @@
   border-color: #090;
 }
 
+.keypad-container.info .key.hovered {
+  border-color: rgba(0, 255, 255, 0.7);
+}
+
 .keypad-container.error .key.hovered {
   border-color: rgba(255, 0, 0, 0.7);
 }
@@ -76,6 +80,11 @@
 .keypad-container.success .keypad-status {
   color: #090;
 }
+
+.keypad-container.info .keypad-status {
+  color: rgba(0, 255, 255, 0.7);
+}
+
 
 .keypad-container.error .keypad-status {
   color: rgba(255, 0, 0, 0.7);

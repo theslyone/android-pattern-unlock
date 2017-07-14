@@ -7,32 +7,31 @@ import Keypad from '../components/Keypad'
 import classNames from 'classnames'
 
 import { connect } from 'react-redux'
-import { setActive, start, select, end, onCursorMoved } from '../reducer'
+import { start, select, end, onCursorMoved } from '../reducer'
 
 import '../keypad.scss'
 
 class KeypadContainer extends Component {
   render () {
-    let { isCorrect } = this.props
+    let { status, isCorrect } = this.props
     var containerClassName = classNames(
       'keypad-container',
-      {
+      status.className,
+      /*{
         'success': isCorrect === true,
         'error': isCorrect === false
-      }
+      }*/
     )
     return (
       <div className='text-center'>
         <div className={containerClassName}>
           <span className='keypad-status'>
-            {isCorrect === null ? 'Draw a pattern to unlock' :
-            isCorrect === true ? 'Success' : 'Opps! pattern is not correct'}
+            {status.text}
           </span>
           <Keypad
             isActive={this.props.isActive}
             keys={this.props.keys}
             cursor={this.props.cursor}
-            setActive={this.props.setActive}
             onCursorMoved={this.props.onCursorMoved}
             onStart={this.props.start}
             onSelect={this.props.select}
@@ -48,16 +47,18 @@ KeypadContainer.propTypes = {
   isActive: PropTypes.bool.isRequired,
   keys: PropTypes.object.isRequired,
   cursor: PropTypes.object,
-  setActive: PropTypes.func.isRequired,
   onCursorMoved: PropTypes.func.isRequired,
   select: PropTypes.func.isRequired,
   start: PropTypes.func.isRequired,
   end: PropTypes.func.isRequired,
+  status: PropTypes.shape({
+    className: PropTypes.string,
+    text: PropTypes.string
+  }).isRequired,
   isCorrect: PropTypes.bool
 }
 
 const mapDispatchToProps = {
-  setActive: (value) => setActive(value),
   onCursorMoved: (position) => onCursorMoved(position),
   start : (keyValue) => start(keyValue),
   select : (keyValue) => select(keyValue),
@@ -68,6 +69,7 @@ const mapStateToProps = (state) => ({
   isActive: state.keypad.active,
   keys : state.keypad.keys,
   cursor: state.keypad.cursor,
+  status: state.keypad.status,
   isCorrect: state.keypad.isCorrect
 })
 

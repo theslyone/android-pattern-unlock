@@ -6,7 +6,7 @@ import './HomeView.scss'
 export const HomeView = () => (
   <div className='home-page'>
     <div className='home-title-head'>
-      <span className='home-page-title'>All Applications</span>
+      <span className='home-page-title'>Welcome</span>
       <div className='home-filter'>
         <Ionicon className='home-filter' icon='ion-funnel' fontSize='20px' color='#FFF' />
       </div>
@@ -57,8 +57,11 @@ export const HomeView = () => (
         </div>
 
         <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-ionic' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Ionic</div>
+          <Link to={{ pathname: '/', query: { mode: 'changePassword' } }}
+            activeClassName='page-layout__nav-item--active'>
+            <Ionicon className='home-btn' icon='ion-android-unlock' fontSize='30px' color='#FFF' />
+          </Link>
+          <div className='home-icon-title'>Change Password</div>
         </div>
       </div>
     </div>
