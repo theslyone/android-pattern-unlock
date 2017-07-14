@@ -10,7 +10,6 @@ export default class Key extends Component {
     super(props)
     this.start = this.start.bind(this)
     this.select = this.select.bind(this)
-    this.end = this.end.bind(this)
   }
 
   getPosition (value) {
@@ -18,21 +17,18 @@ export default class Key extends Component {
     return getPosition(node)
   }
 
-  start () {
+  start (e) {
+    e.preventDefault()
     let { onStart, value } = this.props
     let position = this.getPosition(value)
     onStart({ position, value })
   }
 
-  select () {
+  select (e) {
+    e.preventDefault()
     let { isActive, onSelect, value } = this.props
     let position = this.getPosition(value)
     isActive && onSelect({ position, value })
-  }
-
-  end () {
-    let { onEnd } = this.props
-    onEnd()
   }
 
   render () {
@@ -46,8 +42,8 @@ export default class Key extends Component {
 
     return (
       <li className={keyClassName}
-        onMouseDown={this.start} onMouseEnter={this.select} onMouseUp={this.end}
-        onTouchStart={this.start} onTouchMove={this.select} onTouchEnd={this.end}>
+        onMouseDown={this.start} onMouseEnter={this.select}
+        onTouchStart={this.start} onTouchMove={this.select}>
         <div className={`${value}`} />
       </li>
     )
@@ -59,6 +55,5 @@ Key.propTypes = {
   isSelected: PropTypes.bool,
   onStart: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
-  onEnd: PropTypes.func.isRequired,
   value: PropTypes.number.isRequired
 }
