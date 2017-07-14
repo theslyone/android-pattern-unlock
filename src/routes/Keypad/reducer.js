@@ -77,7 +77,7 @@ export function end (value) {
       if (accessGranted) {
         dispatch(push('/home'))
       }
-    }, 2000)
+    }, 1000)
   }
 }
 
