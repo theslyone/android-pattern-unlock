@@ -6,8 +6,6 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { getPosition } from '../../../lib/DOMManager'
 
-import '../keypad.scss'
-
 export default class Key extends Component {
   constructor (props) {
     super(props)
@@ -17,7 +15,7 @@ export default class Key extends Component {
   }
 
   getPosition (value) {
-    let node = document.getElementsByClassName(`node_${value}`)[0]
+    let node = document.getElementsByClassName(`${value}`)[0]
     return getPosition(node)
   }
 
@@ -64,7 +62,7 @@ export default class Key extends Component {
         this.end()
       }}>
         <li className={keyClassName}>
-          <div className={`node_${value}`} />
+          <div className={`${value}`} />
         </li>
       </ReactGesture>
     )

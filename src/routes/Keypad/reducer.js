@@ -1,4 +1,4 @@
-import { Record, Map } from 'immutable'
+import { Record, OrderedMap } from 'immutable'
 import { push } from 'react-router-redux'
 // ------------------------------------
 // Constants
@@ -36,14 +36,14 @@ export function setSecret (value) {
   }
 }
 
-export function start (value = 1) {
+export function start (value) {
   return {
     type    : START,
     payload : value
   }
 }
 
-export function select (value = 1) {
+export function select (value) {
   return {
     type    : SELECT,
     payload : value
@@ -72,33 +72,33 @@ export function grantAccess (value) {
 export function end (value) {
   return (dispatch, getState) => {
     dispatch(finish())
-    let mode = getState().keypad.mode
-    let keys = getState().keypad.keys
-
-    let secretKey = keys.keySeq().toArray().join('')
-
-    if (mode === 'changePassword') {
-      dispatch(setSecret(secretKey))
-      setTimeout(() => {
-        dispatch(setMode())
-        dispatch(push('/'))
-      }, 2000)
-    } else {
-      let secret = getState().keypad.secret
-      let accessGranted = secretKey === secret
-      if (accessGranted) {
-        dispatch(grantAccess(true))
+    return new Promise(function (resolve, reject) {
+      let mode = getState().keypad.mode
+      let keys = getState().keypad.keys
+      let secretKey = keys.keySeq().toArray().join('')
+      if (mode === 'changePassword') {
+        dispatch(setSecret(secretKey))
+        setTimeout(() => {
+          dispatch(setMode())
+          dispatch(push('/'))
+        }, 1500)
       } else {
-        dispatch(grantAccess(false))
-      }
-
-      setTimeout(() => {
-        dispatch(setMode())
+        let secret = getState().keypad.secret
+        let accessGranted = secretKey === secret
         if (accessGranted) {
-          dispatch(push('/home'))
+          dispatch(grantAccess(true))
+        } else {
+          dispatch(grantAccess(false))
         }
-      }, 1000)
-    }
+        setTimeout(() => {
+          dispatch(setMode())
+          if (accessGranted) {
+            dispatch(push('/home'))
+          }
+          resolve()
+        }, 1000)
+      }
+    })
   }
 }
 
@@ -108,8 +108,11 @@ export function end (value) {
 const ACTION_HANDLERS = {
   [SET_MODE]: (state, action) => initialState.set('secret', state.secret).set('mode', action.payload || 'default'),
   [CURSOR_POSITION]: (state, action) => state.set('cursor', action.payload),
-  [SELECT]: (state, action) => state.setIn(['keys', action.payload.value], action.payload),
+
   [START]: (state, action) => state.set('active', true).setIn(['keys', action.payload.value], action.payload),
+  //[START]: (state, action) => state.set('active', true).setIn(['keys'], state.keys.set(action.payload.value, action.payload)),
+
+  [SELECT]: (state, action) => state.setIn(['keys', action.payload.value], action.payload),
   [FINISH]: (state, action) => state.set('active', false),
 
   [SET_SECRET]: (state, action) => state.set('secret', action.payload)
@@ -119,7 +122,7 @@ const ACTION_HANDLERS = {
   [GRANT_ACCESS]: (state, action) => {
     return state.set('isCorrect', action.payload)
       .setIn(['status', 'className'], action.payload ? 'success' : 'error')
-      .setIn(['status', 'text'], action.payload ? 'Success' : 'Opps! pattern is not correct')
+      .setIn(['status', 'text'], action.payload ? 'Pattern matched successfully' : 'Opps! pattern is not correct')
   },
   [CLEAR]  : (state, action) => initialState
 }
@@ -131,8 +134,8 @@ const initialState = Record({
   mode: 'default',
   active: false,
   cursor: {},
-  keys: Map(),
-  secret: '123',
+  keys: OrderedMap(),
+  secret: '7415963',
   status: (Record({
     className: 'default',
     text: 'Draw a pattern to unlock'
@@ -140,10 +143,6 @@ const initialState = Record({
   statusText: 'Draw a pattern to unlock',
   isCorrect: null
 })()
-
-export const actions = {
-  onCursorMoved, start, select, end, clear
-}
 
 export default function keypadReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

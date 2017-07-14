@@ -22,6 +22,11 @@ After completing the [installation](#installation) step, you're ready to start t
 ```bash
 $ yarn start  # Start the development server (or `npm start`)
 ```
+Default password on page load/refresh is the capital letter `N` drawn starting from the bottom left corner.
+On successful unlock, the password can be changed by clicking the change password icon (last icon at the bottom right corner).
+The screen can further be lock without changing password by clicking the lock icon at the bottom beside the home icon.
+
+Please note that all other icons on the home screen are dummies and hence do not have any click events.
 
 There are additional scripts at your disposal:
 

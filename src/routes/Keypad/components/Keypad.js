@@ -7,8 +7,6 @@ import Key from './Key'
 import LineTo, { Line } from 'react-lineto'
 import { getPosition } from '../../../lib/DOMManager'
 
-import '../keypad.scss'
-
 export default class Keypad extends Component {
   constructor (props) {
     super(props)
@@ -69,7 +67,7 @@ export default class Keypad extends Component {
               if (nextNode) {
                 return (
                   <LineTo key={idx}
-                    from={`node_${node}`} to={`node_${nextNode}`}
+                    from={`${node}`} to={`${nextNode}`}
                     className='key-line' border='2px solid #FFF' />
                 )
               } else {
