@@ -1,0 +1,28 @@
+body {
+  background: url(./background.jpg) no-repeat;
+  background-color: #000;
+  background-size:100%;
+  color: #FFF
+}
+
+.main-page {
+  width: 500px;
+  height: 500px;
+}
+
+h1, h2, h3 {
+  //color: #FFF
+}
+
+h1.header {
+  padding-top: 25px
+}
+
+.page-layout__viewport {
+  padding-top: 4rem;
+}
+
+.page-layout__nav-item--active {
+  font-weight: bold;
+  text-decoration: underline;
+}

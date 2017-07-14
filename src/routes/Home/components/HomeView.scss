@@ -1,0 +1,95 @@
+.home-page {
+  background-color: rgba(0, 0, 0, 1);
+  background-size:100%;
+  color: #FFF
+}
+
+.home-title-head {
+  padding: 15px;
+  font-size: 16px;
+  //margin: 0 -15px;
+  background: rgba(255, 255, 255, .2)
+}
+
+.home-filter {
+  float: right;
+  position: relative;
+}
+
+.home-bottom-link-bar {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  padding: 15px;
+  text-align: center;
+}
+
+.home-bottom-link-bar .home-bottom-btn:nth-child(1) {
+  margin-right: 15px;
+}
+
+.home-bottom-link-bar .home-bottom-btn {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 5px;
+}
+
+.home-bottom-btn {
+  animation: bounceInUp .8s
+}
+
+.home-bottom-link-bar .home-bottom-btn:hover {
+  color: #ccc;
+  background: rgba(255, 255, 255, .4)
+}
+
+.home-row {
+  margin-top: 15px
+}
+
+.home-row .home-col {
+  width: 33.3333%;
+  float: left;
+  margin-bottom: 15px
+}
+
+.home-row .home-col .home-icon {
+  text-align: center
+}
+
+.home-row .home-col .home-icon-title {
+  margin-top: 5px;
+  cursor: default;
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .5)
+}
+
+.home-btn {
+  width: 60px;
+  height: 60px;
+  margin: 15px auto;
+  display: block;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 55px;
+  text-align: center;
+  border-radius: 15px;
+  padding: 10px;
+  background: rgba(0, 0, 0, .3);
+  -webkit-transition: background .4s ease-in-out 0s;
+  transition: background .4s ease-in-out 0s;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, .5) inset
+}
+
+.home-btn:hover {
+  background-color: #2980b9;
+}

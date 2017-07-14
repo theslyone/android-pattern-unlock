@@ -1,0 +1,64 @@
+import { applyMiddleware, compose, createStore as createReduxStore } from 'redux'
+import thunk from 'redux-thunk'
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
+
+import makeRootReducer from './reducers'
+import { updateLocation } from './location'
+import { createLogger } from 'redux-logger'
+
+const createStore = (initialState = {}) => {
+  // ======================================================
+  // Middleware Configuration
+  // ======================================================
+  const middlewares = [thunk, routerMiddleware(browserHistory)]
+
+  if (__DEV__) {
+    //const { logger } = require(`redux-logger`)
+    let logger = createLogger({
+      predicate: (getState, action) => action.type !== 'CURSOR_POSITION'
+    })
+    middlewares.push(logger)
+  }
+
+  // ======================================================
+  // Store Enhancers
+  // ======================================================
+  const enhancers = []
+  let composeEnhancers = compose
+
+  if (__DEV__) {
+    if (typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    }
+  }
+
+  // ======================================================
+  // Store Instantiation and HMR Setup
+  // ======================================================
+  const store = createReduxStore(
+    makeRootReducer(),
+    initialState,
+    composeEnhancers(
+      applyMiddleware(...middlewares),
+      ...enhancers
+    )
+  )
+  store.asyncReducers = {}
+
+  // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
+  const history = syncHistoryWithStore(browserHistory, store)
+  history.listen(location => updateLocation(store))
+  store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
+
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      const reducers = require('./reducers').default
+      store.replaceReducer(reducers(store.asyncReducers))
+    })
+  }
+
+  return store
+}
+
+export default createStore
