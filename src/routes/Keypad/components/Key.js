@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import ReactGesture from 'react-gesture'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { getPosition } from '../../../lib/DOMManager'
@@ -46,35 +45,11 @@ export default class Key extends Component {
     )
 
     return (
-      <ReactGesture onTap={() => {
-        console.log('onTap 2')
-      }} onTouchStart={(e) => {
-        e.preventDefault()
-        this.start()
-      }} onTouchEnter={(e) => {
-        e.preventDefault()
-        e.preventDefault()
-        this.select()
-      }} onTouchLeave={(e) => {
-        e.preventDefault()
-        //console.log(`onTouchLeave ${value}`)
-      }} onTouchEnd={(e) => {
-        e.preventDefault()
-        this.end()
-      }} onMouseDown={() => {
-        this.start()
-      }} onMouseEnter={(e) => {
-        this.select()
-      }} onMouseLeave={(e) => {
-        //console.log(`onMouseLeave ${value}`)
-      }} onMouseUp={() => {
-        this.end()
-      }}>
-        <li className={keyClassName}>
-          <div ref={(node) => { this.key = node }}
-            className={`${value}`} />
-        </li>
-      </ReactGesture>
+      <li className={keyClassName}
+        onMouseDown={this.start} onMouseEnter={this.select} onMouseUp={this.end}
+        onTouchStart={this.start} onTouchMove={this.select} onTouchEnd={this.end}>
+        <div className={`${value}`} />
+      </li>
     )
   }
 }
