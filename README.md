@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/theslyone/android-pattern-unlock.svg?branch=master)](https://travis-ci.org/theslyone/android-pattern-unlock)
 
+Demo available on [Heroku](https://sg-android-pattern-unlock.herokuapp.com)
 The primary goal of this project is to provide a basic implementation of an android pattern lock/unlock system.
 
 ## Requirements
