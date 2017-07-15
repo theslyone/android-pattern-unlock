@@ -1,5 +1,6 @@
 import { Record, OrderedMap } from 'immutable'
 import { push } from 'react-router-redux'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -12,9 +13,13 @@ export const SET_ACTIVE = 'SET_ACTIVE'
 export const START = 'START'
 export const FINISH = 'FINISH'
 export const GRANT_ACCESS = 'GRANT_ACCESS'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
+/*
+ * Fired on cursor moved
+ */
 export function onCursorMoved (position) {
   return {
     type    : CURSOR_POSITION,
@@ -22,6 +27,10 @@ export function onCursorMoved (position) {
   }
 }
 
+/*
+ * Change keypad mode
+ * Valid values: default, changePassword
+ */
 export function setMode (value) {
   return {
     type: SET_MODE,
@@ -29,6 +38,9 @@ export function setMode (value) {
   }
 }
 
+/*
+ * Set keypad secret code
+ */
 export function setSecret (value) {
   return {
     type: SET_SECRET,
@@ -36,6 +48,9 @@ export function setSecret (value) {
   }
 }
 
+/*
+ * Dispatch action to start recording the keys selected
+ */
 export function start (value) {
   return {
     type    : START,
@@ -43,6 +58,9 @@ export function start (value) {
   }
 }
 
+/*
+ * Dispatches selected keys to store only is keypad state is active (if the `start` action was already dispatched)
+ */
 export function select (value) {
   return {
     type    : SELECT,
@@ -50,18 +68,27 @@ export function select (value) {
   }
 }
 
+/*
+ * Dispatch action to end recording selected keys
+ */
 export function finish () {
   return {
     type: FINISH
   }
 }
 
+/*
+ * Reinitialize the store state
+ */
 export function clear () {
   return {
     type: CLEAR
   }
 }
 
+/*
+ * Dispatch access granted or denied action based on the selected keys after `finish` is dispatch
+ */
 export function grantAccess (value) {
   return {
     type: GRANT_ACCESS,
@@ -69,7 +96,11 @@ export function grantAccess (value) {
   }
 }
 
-export function end (value) {
+/*
+ * An async action to signal to store that keys have all been recorded
+ * Verifies the key sequence against value saved in store or saves a new secret based on the keypad mode
+ */
+export function end () {
   return (dispatch, getState) => {
     dispatch(finish())
     return new Promise(function (resolve, reject) {
@@ -90,6 +121,7 @@ export function end (value) {
         } else {
           dispatch(grantAccess(false))
         }
+
         setTimeout(() => {
           dispatch(setMode())
           if (accessGranted) {
@@ -125,9 +157,9 @@ const ACTION_HANDLERS = {
   [CLEAR]  : (state, action) => initialState
 }
 
-// ------------------------------------
-// Reducer
-// ------------------------------------
+/*
+ * Initial reducer state
+ */
 const initialState = Record({
   mode: 'default',
   active: false,
@@ -142,6 +174,9 @@ const initialState = Record({
   isCorrect: null
 })()
 
+// ------------------------------------
+// Reducer
+// ------------------------------------
 export default function keypadReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 

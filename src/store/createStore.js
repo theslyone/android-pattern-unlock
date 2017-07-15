@@ -14,7 +14,7 @@ const createStore = (initialState = {}) => {
   const middlewares = [thunk, routerMiddleware(browserHistory)]
 
   if (__DEV__) {
-    //const { logger } = require(`redux-logger`)
+    // const { logger } = require(`redux-logger`)
     let logger = createLogger({
       predicate: (getState, action) => action.type !== 'CURSOR_POSITION'
     })
