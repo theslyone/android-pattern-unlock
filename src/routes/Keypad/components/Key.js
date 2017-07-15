@@ -5,11 +5,25 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { getPosition } from '../../../lib/DOMManager'
 
+import PointerEvents from 'spur-events'
+var addListener = PointerEvents.addListener
+var removeListener = PointerEvents.removeListener
+
 export default class Key extends Component {
   constructor (props) {
     super(props)
     this.start = this.start.bind(this)
     this.select = this.select.bind(this)
+  }
+
+  componentDidMount () {
+    let node = document.getElementsByClassName(`${this.props.value}`)[0]
+    addListener(node, 'pointerenter', this.start, { context: this })
+  }
+
+  componentWillUnmount () {
+    let node = document.getElementsByClassName(`${this.props.value}`)[0]
+    removeListener(node, 'pointerenter', this.start)
   }
 
   getPosition (value) {
@@ -26,7 +40,6 @@ export default class Key extends Component {
   }
 
   select (e) {
-    alert('moved')
     let { isActive, onSelect, value } = this.props
     let position = this.getPosition(value)
     isActive && onSelect({ position, value })
@@ -44,7 +57,7 @@ export default class Key extends Component {
     )
 
     return (
-      <li className={keyClassName}
+      <li ref={(ref) => { this.ref = ref }} className={keyClassName}
         onMouseDown={this.start} onMouseEnter={this.select}
         onTouchStart={this.start} onTouchMove={this.select}>
         <div className={`${value}`} />
