@@ -11,6 +11,13 @@ Demo available on [Heroku](https://sg-android-pattern-unlock.herokuapp.com).
 * yarn `^0.23.0` or npm `^3.0.0`
 
 ## Installation
+After confirming that your environment meets the above [requirements](#requirements), you can clone this repository by doing the following:
+
+```bash
+$ git clone https://github.com/theslyone/android-pattern-unlock.git <preferred-project-name>
+$ cd <preferred-project-name>
+```
+
 Install the project dependencies. It is recommended that you use [Yarn](https://yarnpkg.com/) for deterministic dependency management, but `npm install` also works fine.
 
 ```bash
@@ -42,7 +49,7 @@ Other run scripts at your disposal:
 |`lint:fix`         |Lints the project and [fixes all correctable errors](http://eslint.org/docs/user-guide/command-line-interface.html#fix)|
 
 ## Project Structure
-This project leverages the [awesome writeup](https://github.com/davezuko/react-redux-starter-kit) react redux application structure , it aims to represent generally accepted guidelines and patterns for building scalable applications. If you wish to read more about this pattern, please check out this [awesome writeup](https://github.com/davezuko/react-redux-starter-kit/wiki/Fractal-Project-Structure) by [Justin Greenberg](https://github.com/justingreenberg).
+This project leverages the [react-redux-starter](https://github.com/davezuko/react-redux-starter-kit) application structure , it aims to represent generally accepted guidelines and patterns for building scalable applications. If you wish to read more about this pattern, please check out this [awesome writeup](https://github.com/davezuko/react-redux-starter-kit/wiki/Fractal-Project-Structure) by [Justin Greenberg](https://github.com/justingreenberg).
 
 ```
 .
