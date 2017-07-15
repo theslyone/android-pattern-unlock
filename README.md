@@ -1,6 +1,6 @@
 # Android Pattern Unlock Demo (ReactJS)
 
-[![Build Status](https://travis-ci.org/davezuko/react-redux-starter-kit.svg?branch=master)](https://travis-ci.org/davezuko/react-redux-starter-kit?branch=master)
+[![Build Status](https://travis-ci.org/theslyone/android-pattern-unlock.svg?branch=master)](https://travis-ci.org/theslyone/android-pattern-unlock)
 
 The primary goal of this project is to provide a basic implementation of an android pattern lock/unlock system.
 
