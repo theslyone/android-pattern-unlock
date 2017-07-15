@@ -40,7 +40,6 @@ export default class Keypad extends Component {
       y: e.pageY
     }
     this.props.onCursorMoved(position)
-
     e.stopPropagation()
     e.preventDefault()
   }

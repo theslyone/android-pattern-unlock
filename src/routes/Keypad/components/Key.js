@@ -18,17 +18,20 @@ export default class Key extends Component {
   }
 
   start (e) {
-    e.preventDefault()
     let { onStart, value } = this.props
     let position = this.getPosition(value)
     onStart({ position, value })
+    e.stopPropagation()
+    e.preventDefault()
   }
 
   select (e) {
-    e.preventDefault()
+    alert('moved')
     let { isActive, onSelect, value } = this.props
     let position = this.getPosition(value)
     isActive && onSelect({ position, value })
+    e.stopPropagation()
+    e.preventDefault()
   }
 
   render () {

@@ -4244,7 +4244,7 @@ object.entries@^1.0.4:
     function-bind "^1.1.0"
     has "^1.0.1"
 
-object.omit@^2.0.0, object.omit@^2.0.1:
+object.omit@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/object.omit/-/object.omit-2.0.1.tgz#1a9c744829f39dbb858c76ca3579ae2a54ebd1fa"
   dependencies:
@@ -4935,14 +4935,6 @@ react-clock@^1.0.5:
     react "^0.14.3"
     react-dom "^0.14.3"
 
-react-cursor-position@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.1.0.tgz#e519fcc93beea6629200ac41a9bd3e3b6f760006"
-  dependencies:
-    object-assign "^4.1.1"
-    object.omit "^2.0.1"
-    prop-types "^15.5.10"
-
 react-dom@15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
@@ -4974,10 +4966,6 @@ react-element-to-jsx-string@^5.0.0:
     sortobject "^1.0.0"
     stringify-object "2.4.0"
     traverse "^0.6.6"
-
-"react-gesture@https://github.com/theslyone/react-gesture.git":
-  version "0.1.5"
-  resolved "https://github.com/theslyone/react-gesture.git#ce12f126432c09eceb5d3ce6777016374aa0e642"
 
 react-ionicons@^1.5.7:
   version "1.5.7"

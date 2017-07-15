@@ -1,6 +1,7 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
 import Ionicon from 'react-ionicons'
+import HomeIcon from './HomeIcon'
 import './HomeView.scss'
 
 export const HomeView = () => (
@@ -14,66 +15,30 @@ export const HomeView = () => (
 
     <div className='home-row'>
       <div className='home-col'>
-        <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-person' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Contacts</div>
-        </div>
-
-        <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-chatbox' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Messages</div>
-        </div>
-
-        <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-briefcase' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Portfolio</div>
-        </div>
+        <HomeIcon title='Contacts' icon='ion-person' />
+        <HomeIcon title='Messages' icon='ion-chatbox' />
+        <HomeIcon title='Portfolio' icon='ion-briefcase' />
       </div>
       <div className='home-col'>
-        <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-social-facebook' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Facebook</div>
-        </div>
-
-        <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-social-twitter' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Twitter</div>
-        </div>
-
-        <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-social-dribbble-outline' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Dribble</div>
-        </div>
+        <HomeIcon title='Facebook' icon='ion-social-facebook' />
+        <HomeIcon title='Twitter' icon='ion-social-twitter' />
+        <HomeIcon title='Dribble' icon='ion-social-dribbble-outline' />
       </div>
       <div className='home-col'>
-        <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-android-camera' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Camera</div>
-        </div>
-
-        <div className='home-icon'>
-          <Ionicon className='home-btn' icon='ion-information-circled' fontSize='30px' color='#FFF' />
-          <div className='home-icon-title'>Credits</div>
-        </div>
-
-        <div className='home-icon'>
-          <Link to={{ pathname: '/', query: { mode: 'changePassword' } }}
-            activeClassName='page-layout__nav-item--active'>
-            <Ionicon className='home-btn' icon='ion-android-unlock' fontSize='30px' color='#FFF' />
-          </Link>
-          <div className='home-icon-title'>Change Password</div>
-        </div>
+        <HomeIcon title='Camera' icon='ion-android-camera' />
+        <HomeIcon title='Credits' icon='ion-information-circled' />
+        <HomeIcon title='Change Password' icon='ion-android-unlock'
+          link={{ pathname: '/', query: { mode: 'changePassword' } }} />
       </div>
     </div>
 
     <div className='home-bottom-link-bar'>
       <Link to='/home' activeClassName='page-layout__nav-item--active'>
-        <Ionicon className='home-bottom-btn' icon='ion-home' fontSize='35px' color='#FFF' />
+        <Ionicon className='home-bottom-btn' icon='ion-home' fontSize='30px' color='#FFF' />
       </Link>
       <IndexLink to='/' activeClassName='page-layout__nav-item--active'>
-        <Ionicon className='home-bottom-btn' icon='ion-ios-locked' fontSize='35px' color='#FFF' />
+        <Ionicon className='home-bottom-btn' icon='ion-ios-locked' fontSize='30px' color='#FFF' />
       </IndexLink>
-
     </div>
   </div>
 )
