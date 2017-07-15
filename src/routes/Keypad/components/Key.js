@@ -17,13 +17,13 @@ export default class Key extends Component {
   }
 
   componentDidMount () {
-    let node = document.getElementsByClassName(`${this.props.value}`)[0]
-    addListener(node, 'pointerenter', this.start, { context: this })
+    let node = document.getElementsByClassName(`key_${this.props.value}`)[0]
+    addListener(node, 'pointerenter', this.select, { context: this })
   }
 
   componentWillUnmount () {
-    let node = document.getElementsByClassName(`${this.props.value}`)[0]
-    removeListener(node, 'pointerenter', this.start)
+    let node = document.getElementsByClassName(`key_${this.props.value}`)[0]
+    removeListener(node, 'pointerenter', this.select)
   }
 
   getPosition (value) {
@@ -51,6 +51,7 @@ export default class Key extends Component {
     let { isSelected, value } = this.props
     var keyClassName = classNames(
       'key',
+      `key_${value}`,
       {
         'hovered': isSelected
       }
